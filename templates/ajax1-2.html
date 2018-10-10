@@ -1,0 +1,96 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static tags%}
+{% block content %}
+
+<button id="s1-1" class="sss">aa1</button>
+<button id="s2-1" class="sss">aa2</button>
+<p id="ww">bb</p>
+
+
+    <div id="hehe" class="sel2" style=display:none>
+    <select name="zi" class="aaa">
+    <option value="gds">广东省</option>
+    <option value="gxs">广西省</option>
+    <option value="fxs">福建省</option>
+    <option value="hns">湖南省</option>
+    <option value="sds">山东省</option>
+</select>
+<select name="duan" class="bbb">
+    <option value="1">=</option>
+    <option value="2">></option>
+    <option value="3"><</option>
+    <option value="4"><=</option>
+    <option value="5">>=</option>
+    <option value="6">！=</option>
+    <option value="7">like</option>
+</select>
+    <input type="text" class="span2" name="shu">
+    <button type="button" class="btn" onclick="quchu(this)">-</button>
+    </div>
+{#    <button type="submit" class="btn">Search</button>#}
+    <button type="button" class="btn" onclick="tianjia()">ll </button>
+
+
+<form id="surch_form" style="background: #f0f0f0 ;overflow: auto;border: outset">
+
+
+
+<button id="go" type="button" class="btn" style="display: block;">go</button>
+<input type="text" name="tiaojian" style="display: none">
+</form>
+
+
+
+{% endblock %}
+
+
+
+{% block bottom-js %}
+<script>
+var ide=1
+var idea='a'
+function tianjia() {
+
+    idea='a'+ide
+    $('#hehe').clone(true).appendTo('#surch_form').attr({'id':idea,'style':'float:left'});
+
+    ide=ide+1
+};
+function quchu(self) {
+
+   $(self).parent().remove()
+};
+
+
+$(".sss").click(function(){
+
+            //$.post("")
+{#            var dd=$("#aa1").attr("id")#}
+
+            var dd=$(this).attr("id")
+{#            alert(dd)#}
+            var post_data ={"id":dd};
+            $.get("/ajaxtest1/",post_data,function(datas){
+
+                $("#ww").text(datas)
+                var xx=eval(datas)
+
+                alert(xx[0].b)
+            })
+
+        });
+
+$("#go").click(function () {
+
+    console.log('aaa');
+    $("form input:gt(0)").each(function (){console.log($(this).val())});
+
+    $("form select[name=\"duan\"]").each(function (){console.log($(this).val())});
+console.log('aaaqq');
+})
+
+
+
+
+</script>
+{% endblock %}
